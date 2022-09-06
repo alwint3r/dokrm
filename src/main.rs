@@ -19,19 +19,17 @@ fn main() {
 
     let images = splat
         .skip(1)
+        .filter(|line| !line.is_empty())
         .map(|line| {
             let image_tags: Vec<&str> = line.split(' ').filter(|line| !line.is_empty()).collect();
-            if image_tags.len() < 1 {
-                String::from("")
-            } else {
-                format!("{}:{}", image_tags[0], image_tags[1])
-            }
+            format!("{}:{}", image_tags[0], image_tags[1])
         })
         .filter(|image| image.len() > 0);
 
     let selected_images: Vec<String> = images
         .filter(|image| image.contains(&image_name))
         .collect();
+
     for image in selected_images {
         println!("Removing {}", image);
 
