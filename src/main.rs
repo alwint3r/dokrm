@@ -17,17 +17,14 @@ fn main() {
     let stdout = String::from_utf8_lossy(result.stdout.as_slice());
     let splat = stdout.split('\n');
 
-    let images = splat
+    let selected_images: Vec<String> = splat
         .skip(1)
         .filter(|line| !line.is_empty())
         .map(|line| {
             let image_tags: Vec<&str> = line.split(' ').filter(|line| !line.is_empty()).collect();
             format!("{}:{}", image_tags[0], image_tags[1])
         })
-        .filter(|image| image.len() > 0);
-
-    let selected_images: Vec<String> = images
-        .filter(|image| image.contains(&image_name))
+        .filter(|image| image.len() > 0 && image.contains(&image_name))
         .collect();
 
     for image in selected_images {
