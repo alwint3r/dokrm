@@ -24,7 +24,7 @@ fn main() {
             let image_tags: Vec<&str> = line.split(' ').filter(|line| !line.is_empty()).collect();
             format!("{}:{}", image_tags[0], image_tags[1])
         })
-        .filter(|image| image.len() > 0 && image.contains(&image_name))
+        .filter(|image| image.contains(&image_name))
         .collect();
 
     for image in selected_images {
